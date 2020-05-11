@@ -1,3 +1,8 @@
+locals {
+  domain_elements = split(".", var.domain_name)
+  zone_name = length(local.domain_elements) == 2 ? "${var.domain_name}." : "${local.domain_elements[length(local.domain_elements) - 2]}.${local.domain_elements[length(local.domain_elements) - 1]}."
+}
+
 resource "aws_s3_bucket" "bucket" {
   bucket = var.domain_name
   acl    = "public-read"
@@ -93,7 +98,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 data "aws_route53_zone" "zone" {
-  name = "${var.domain_name}."
+  name = local.zone_name
 }
 
 resource "aws_route53_record" "domain_a" {
