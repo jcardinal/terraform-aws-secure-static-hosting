@@ -10,17 +10,17 @@ The intended use of this module is that you give it a domain and it creates ever
 ## Examples
 Create secure static hosting for an apex domain
 ```
-module "mystaticdomain_com" {
+module "example_com" {
   source      = "app.terraform.io/uptime/secure-static-hosting/aws"
-  domain_name = "mystaticdomain.com"
+  domain_name = "example.com"
 }
 ```
 
 Create https-enabled website redirect for a www subdomain
 ```
-module "www_mystaticdomain_com" {
+module "www_example_com" {
   source               = "app.terraform.io/uptime/secure-static-hosting/aws"
-  domain_name          = "www.mystaticdomain.com"
-  redirect_destination = "https://mystaticdomain.com"
+  domain_name          = "www.example.com"
+  redirect_destination = "https://example.com"
 }
 ```
