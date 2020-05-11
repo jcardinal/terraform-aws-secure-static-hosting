@@ -15,3 +15,8 @@ variable "error_document" {
   type    = string
   default = "404.html"
 }
+
+variable "redirect_destination" {
+  type    = string
+  default = null
+}

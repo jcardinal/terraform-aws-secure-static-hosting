@@ -17,8 +17,9 @@ resource "aws_s3_bucket" "bucket" {
 POLICY
 
   website {
-    index_document = var.index_document
-    error_document = var.error_document
+    index_document           = var.redirect_destination == null ? var.index_document : null
+    error_document           = var.redirect_destination == null ? var.error_document : null
+    redirect_all_requests_to = var.redirect_destination == null ? null : var.redirect_destination
   }
 }
 
