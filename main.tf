@@ -1,8 +1,3 @@
-locals {
-  domain_elements = split(".", var.domain_name)
-  zone_name = length(local.domain_elements) == 2 ? "${var.domain_name}." : "${local.domain_elements[length(local.domain_elements) - 2]}.${local.domain_elements[length(local.domain_elements) - 1]}."
-}
-
 resource "aws_s3_bucket" "bucket" {
   bucket = var.domain_name
   acl    = "public-read"
@@ -29,8 +24,8 @@ POLICY
 }
 
 resource "aws_acm_certificate" "certificate" {
-  domain_name               = var.domain_name
-  validation_method         = "DNS"
+  domain_name       = var.domain_name
+  validation_method = "DNS"
 }
 
 resource "aws_route53_record" "domain_validation" {
