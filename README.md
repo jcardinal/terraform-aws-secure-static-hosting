@@ -38,7 +38,7 @@ A complete terraform configuration, including provider definition, static hostin
 
 ```
 provider "aws" {
-  version = "~> 2.0"
+  version = "~> 3.0"
   region  = "us-east-1"
 }
 
@@ -54,7 +54,12 @@ module "www_example_com" {
 }
 ```
 
+## Additional Arguments
+
+`index_document`: (Optional) The file to serve at the root of your domain. Defaults to `index.html`.
+
+`error_document`: (Optional) The file to serve for custom 4XX errors. Defaults to `404.html`.
+
 ## Notes
 
-- this module assumes your homepage is `index.html` and error pages should serve `404.html`. If you need to modify this, use `index_document = "your_index_file.html"` and `error_document = "your_error_file.html"` in your module call
-- If you don't put your content in the S3 bucket before attempting to load your site, CloudFront will cache the error and you'll have to do an invalidation after your files are loaded to get the site loading
+Be sure to put your content in the S3 bucket before attempting to load your site. This will avoid having CloudFront cache errors for missing files. If you do make this mistake, you will have to do a cache invalidation in CloudFront after your files are in place in order to get things working.
